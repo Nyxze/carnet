@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Carnet de voyage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+  <ion-label>Date de début</ion-label>
+  <input type="date" [(ngModel)]="startDate" (ngModelChange)="startDate = $event; filterResult()">
+  <ion-label>
+    Date de fin
+  </ion-label>
+  <input type="date" [(ngModel)]="endDate" (ngModelChange)="endDate = $event; filterResult()">
+
+
+  <label>
+    Rating
+  </label>
+  <select [(ngModel)]="rating" (ngModelChange)="rating = $event; filterResult()">
+    <option> 1</option>
+    <option> 2</option>
+    <option> 3</option>
+    <option> 4</option>
+    <option> 5</option>
+  </select>
+  <ion-button (click)="reset()">
+    Reset
+  </ion-button>
+
+  <ion-item-divider>
+  </ion-item-divider>
+
+  <ion-list>
+    <ion-item *ngFor="let item of noteList"
+              routerLink="/tabs/form/{{ item.id }}">
+      <ion-label>
+        <h4>{{ item.title }}</h4>
+        <p>{{item.date}}</p>
+      </ion-label>
+      <ion-label slot="end">
+        {{item.rating}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar style="padding:3px">
+    <ion-button routerLink="/tabs/form" expand="block">Nouvelle note</ion-button>
+  </ion-toolbar>
+</ion-footer>

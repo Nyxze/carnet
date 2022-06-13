@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Carnet de voyage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="noteForm">
+    <ion-list>
+      <ion-item>
+        <ion-input formControlName="date" type="date">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Rating
+        </ion-label>
+        <ion-select formControlName="rating"  okText="Okay" cancelText="Dismiss">
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
+          <ion-select-option value="4">4</ion-select-option>
+          <ion-select-option value="5">5</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Titre</ion-label>
+        <ion-input type="text" formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Texte</ion-label>
+        <ion-textarea formControlName="text"></ion-textarea>
+      </ion-item>
+
+      <ion-button (click)="takePhoto()" expand="block" shape="rounded">
+        Ajouter une photo
+      </ion-button>
+      <ion-item  *ngFor="let item of noteForm.value.photo">
+        <ion-thumbnail>
+          <ion-img src="{{getImgSrc(item)}}" *ngIf="noteForm.value.photo">
+          </ion-img>
+        </ion-thumbnail>
+      </ion-item>
+    </ion-list>
+
+
+    <ion-button (click)="onValidForm()"
+                [hidden]="noteForm.pristine"> {{id?'Update':'Valider'}}
+    </ion-button>
+    <ion-button *ngIf="id" slot="end" (click)="onDeleteNote()" >
+                Delete
+    </ion-button>
+  </form>
+
+</ion-content>
